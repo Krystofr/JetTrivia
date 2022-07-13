@@ -1,6 +1,7 @@
 package app.christopher.jettrivia.di
 
 import app.christopher.jettrivia.network.QuestionApi
+import app.christopher.jettrivia.repository.QuestionRepository
 import app.christopher.jettrivia.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -16,8 +17,11 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideQuestionApi() : QuestionApi =
-        Retrofit.Builder()
+    fun provideQuestionRepository(api: QuestionApi) = QuestionRepository(api)
+
+    @Singleton
+    @Provides
+    fun provideQuestionApi() : QuestionApi = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
