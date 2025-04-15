@@ -1,11 +1,7 @@
-package app.christopher.jettrivia.room
+package app.christopher.jettrivia.domain
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "questions")
 data class Question(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val id: Int = 0,
     val category: String,
     val questionText: String,
     val optionA: String,
