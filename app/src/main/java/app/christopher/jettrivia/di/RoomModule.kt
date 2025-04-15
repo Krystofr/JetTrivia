@@ -2,7 +2,7 @@ package app.christopher.jettrivia.di
 
 import android.content.Context
 import androidx.room.Room
-import app.christopher.jettrivia.room.TriviaDatabase
+import app.christopher.jettrivia.data.TriviaDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,12 +1,9 @@
 package app.christopher.jettrivia.repository
 
-import app.christopher.jettrivia.room.Question
+import app.christopher.jettrivia.domain.Question
 import kotlinx.coroutines.flow.Flow
 
 interface TriviaRepository {
-
-    fun getQuestions(category: String) : Flow<List<Question>>
-
-    suspend fun seedDatabaseIfEmpty()
-
+    suspend fun seedQuestions(questions: List<Question>)
+    fun getQuestionsByCategory(category: String): Flow<List<Question>>
 }

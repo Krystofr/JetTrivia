@@ -1,14 +1,22 @@
 package app.christopher.jettrivia.repository
 
-import app.christopher.jettrivia.room.QuestionDao
-import app.christopher.jettrivia.util.QuestionSeeder
-import javax.inject.Inject
+import app.christopher.jettrivia.data.QuestionEntity
+import app.christopher.jettrivia.data.TriviaDao
+import app.christopher.jettrivia.domain.Question
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
-class TriviaRepositoryImpl @Inject constructor(private val questionDao: QuestionDao) : TriviaRepository {
+class TriviaRepositoryImpl(
+    private val dao: TriviaDao
+) : TriviaRepository {
+    override suspend fun seedQuestions(questions: List<Question>) {
+        val entities = questions.map { QuestionEntity.fromDomain(it) }
+        dao.insertAll(entities)
+    }
 
-    override fun getQuestions(category: String) = questionDao.getQuestionsByCategory(category)
-
-    override suspend fun seedDatabaseIfEmpty() {
-        if (questionDao.getCount() == 0) questionDao.insertAll(QuestionSeeder.getSeedQuestions())
+    override fun getQuestionsByCategory(category: String): Flow<List<Question>> {
+        return dao.getQuestionsByCategory(category).map { list ->
+            list.map { it.toDomain() }
+        }
     }
 }

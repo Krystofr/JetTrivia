@@ -1,6 +1,6 @@
 package app.christopher.jettrivia.util
 
-import app.christopher.jettrivia.room.Question
+import app.christopher.jettrivia.domain.Question
 
 object QuestionSeeder {
 
