@@ -26,10 +26,11 @@ object AppModule {
             context,
             TriviaDatabase::class.java,
             "trivia_db"
-        ).fallbackToDestructiveMigration(false).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides
+    @Singleton
     fun provideDao(db: TriviaDatabase) = db.triviaDao()
 
     @Provides
@@ -39,10 +40,12 @@ object AppModule {
     }
 
     @Provides
+    @Singleton
     fun provideSeedQuestionsUseCase(repository: TriviaRepository) =
         SeedQuestionsUseCase(repository)
 
     @Provides
+    @Singleton
     fun provideGetQuestionsUseCase(repository: TriviaRepository) =
         GetQuestionsByCategoryUseCase(repository)
 }
